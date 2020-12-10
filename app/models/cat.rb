@@ -4,11 +4,11 @@ class Cat < ApplicationRecord
     include ActionView::Helpers::DateHelper
 
     COLORS = ["white", "black", "orange", "brown"]
-    SEX = ["M", "F"]
+    SEXES = ["M", "F"]
 
     validates :name, :birth_date, :color, :sex, presence: true
     validates :color, inclusion: COLORS
-    validates :sex, inclusion: SEX
+    validates :sex, inclusion: SEXES
     validate :valid_birth?
 
     has_many :rentals
@@ -20,14 +20,5 @@ class Cat < ApplicationRecord
 
     def age
         time_ago_in_words(self.birth_date) 
-        # age = Date.today - :birth_date
-        # case age <=> 365
-        # when -1
-        #     age = age / 30
-        #     return ("#{age} months")
-        # when (0 || 1)
-        #     age = age /365
-        #     age == 1 ? (return "1 year") : (return ("#{age} years"))
-        # end
     end
 end
