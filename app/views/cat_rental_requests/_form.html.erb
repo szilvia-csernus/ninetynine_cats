@@ -1,0 +1,53 @@
+<% action_url = cat_rental_request.persisted? ? cat_rental_request_url(cat_rental_request) : cat_rental_requests_url %>
+<% form_method = cat_rental_request.persisted? ? "PATCH" : "POST" %>
+<% submit_text = cat_rental_request.persisted? ? "Update Cat Rental Request" : "Create Cat Rental Request" %>
+
+<% unless cat_rental_request.errors.full_messages.empty? %>
+    <ul>
+        <% cat_rental_request.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<form action="<%= action_url %>" method="POST">
+    <input type="hidden" name="_method" value="<%= form_method %>">
+  
+  <label for="cat_name">Name</label>
+  <input name="cat[name]" id="cat_name" type="text" value="<%= cat.name %>">
+  <br>
+
+  <label for="cat_birth_date">Age</label>
+  <input name="cat[birth_date]" id="cat_birth_date" type="date" value="<%= cat.birth_date %>">
+  <br>
+  
+  
+  <% Cat::SEXES.each do |sex|  %>
+    <label>
+     <input type="radio"
+            name="cat[sex]" 
+            value=<%= sex %> <%= cat.sex == sex ? "checked" : ""  %>>
+    <%= sex == "M" ? "Male" : "Female"  %>
+    </label>
+  <% end %>
+  <br>
+
+
+  <label for="cat_color">Color</label>
+  <select name="cat[color]" id="cat_color"> 
+  <option disabled selected> -- select a color -- </option>
+    <% Cat::COLORS.each do |color| %>
+        <option value="<%= color %>" <%= "selected" if cat.color == color %>><%= color.upcase %></option>
+    <% end %>
+  </select>
+  <br>
+
+
+  <label for="description">Description</label>
+  <textarea name="cat[description]" id="description"><%= cat.description %></textarea>
+  <br>
+
+  <input type="submit" value="<%= submit_text %>">
+
+  
+</form>

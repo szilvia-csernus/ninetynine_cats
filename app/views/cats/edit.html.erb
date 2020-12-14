@@ -1,6 +1,11 @@
 <h2>Update Cat</h2>
 
-<form action="<%= cat_url(@cat) %>" method="POST">
+<!--<%#= render partial: 'layouts/errors' %>-->
+
+<%= render 'form', cat: @cat %>
+
+
+<!--<form action="<%= cat_url(@cat) %>" method="POST">
     <input type="hidden" name="_method" value="PATCH">
   
   <label for="cat_name">Name</label>
@@ -16,21 +21,12 @@
     <label>
      <input type="radio"
             name="cat[sex]" 
-            value="<%= @cat.sex %>" <%= "checked" if @cat.sex == sex %>>
+            value=<%= sex %> <%= @cat.sex == sex ? "checked" : ""  %>>
     <%= sex == "M" ? "Male" : "Female"  %>
     </label>
   <% end %>
   <br>
-  
 
-  <!--<label for="cat_sex">Sex</label>
-  <select name="cat[sex]" id="cat_sex"> 
-    <% Cat::SEXES.each do |sex| %>
-        <option value="<%= sex %>" <%= "selected" if @cat.sex == sex %>><%= sex %></option>
-    <% end %>
-  </select>
-  <br>
-  -->
 
   <label for="cat_color">Color</label>
   <select name="cat[color]" id="cat_color"> 
@@ -49,4 +45,4 @@
   <input type="submit" value="Update Cat">
 
   
-</form>
+</form>-->

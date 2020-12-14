@@ -1,6 +1,11 @@
 <h2>New Cat</h2>
 
-<form action="/cats" method="post">
+
+<!--<%#= render partial: 'layouts/errors' %>-->
+
+<%= render 'form', cat: @cat %>
+
+<!--<form action="/cats" method="post">
   
   <label for="cat_name">Name</label>
   
@@ -39,3 +44,4 @@
 
   
 </form>
+-->

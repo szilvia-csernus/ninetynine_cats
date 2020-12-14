@@ -15,5 +15,19 @@ cats = Cat.create([{name: "Intelligentsia", birth_date: "2001/02/03", color: "bl
 {name: "Ethical", birth_date: "2020/10/03", color: "black", sex: "M", description: "friendly cat"},
 {name: "Hella", birth_date: "2020/05/03", color: "black", sex: "M", description: "friendly cat"},
 {name: "Butcher", birth_date: "2020/06/03", color: "black", sex: "M", description: "friendly cat"},
-{name: "Fussili", birth_date: "2020/08/03", color: "black", sex: "M", description: "friendly cat"},
+{name: "Fussili", birth_date: "2020/08/03", color: "black", sex: "M", description: "friendly cat"}
 ])
+
+cat_rental_requests = CatRentalRequest.create([{cat_id: 1, start_date: "2020/01/20", end_date: "2020/01/30"},
+                                                {cat_id: 1, start_date: "2020/02/20", end_date: "2020/02/28"},
+                                                {cat_id: 1, start_date: "2020/03/20", end_date: "2020/03/30"},
+                                                {cat_id: 1, start_date: "2020/01/10", end_date: "2020/01/20"},
+                                                {cat_id: 1, start_date: "2020/01/10", end_date: "2020/01/25"},
+                                                {cat_id: 1, start_date: "2020/01/10", end_date: "2020/01/30"},
+                                                {cat_id: 1, start_date: "2020/01/10", end_date: "2020/01/31"},
+                                                {cat_id: 1, start_date: "2020/01/20", end_date: "2020/01/25"},
+                                                {cat_id: 1, start_date: "2020/01/20", end_date: "2020/01/30"},
+                                                {cat_id: 1, start_date: "2020/01/20", end_date: "2020/01/31"},
+                                                {cat_id: 1, start_date: "2020/01/25", end_date: "2020/01/26"},
+                                                {cat_id: 1, start_date: "2020/01/25", end_date: "2020/01/31"},
+                                                {cat_id: 1, start_date: "2020/01/30", end_date: "2020/02/05"}])

@@ -11,7 +11,7 @@ class Cat < ApplicationRecord
     validates :sex, inclusion: SEXES
     validate :valid_birth?
 
-    has_many :rentals
+    has_many :cat_rental_requests, dependent: :destroy
 
     def valid_birth?
         errors[:birth_date] << "not a valid date" unless self.birth_date.is_a?(Date)
