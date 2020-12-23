@@ -8,4 +8,6 @@
     <% end %>
 </ul>
 
-<a href="<%= new_cat_rental_request_url %>">New Cat Rental Request</a>
+<% if current_user %>
+    <a href="<%= new_cat_rental_request_url %>">New Cat Rental Request</a>
+<% end %>

@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<% flash[:notices].try(:each) do |msg| %>
+  <%= msg %>
+<% end %>
+
 <html>
   <head>
     <title>NinetynineCats</title>
@@ -9,7 +14,28 @@
   
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+
+  <% if current_user.nil? %>
+    <form action="<%= new_session_url %>" method="GET">
+      <input type="submit" value="Login" />
+    </form>
+  <% else %>
+    <ul>
+      <li>Logged in as: <%= current_user.username %></li>
+      <li>
+        <form action="<%= session_url %>" method="POST">
+          <input type="hidden"
+                name="authenticity_token"
+                value="<%= form_authenticity_token %>">
+          <input type="hidden" value="delete" name="_method" />
+          <input type="submit" value="Logout" />
+        </form>
+      </li>
+    </ul>
+  <% end %>
+
+<%= yield %>
+
+</body>
 </html>

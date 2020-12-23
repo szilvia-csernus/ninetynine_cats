@@ -1,11 +1,12 @@
 class CatRentalRequest < ApplicationRecord
     STATUS = ["PENDING", "APPROVED", "DENIED"]
 
-    validates :start_date, :end_date, :status, :cat_id, presence: true
+    validates :start_date, :end_date, :status, :cat_id, :user_id, presence: true
     validates :status, inclusion: STATUS
     validate :does_not_overlap_approved_request
 
     belongs_to :cat
+    belongs_to :requester, class_name: :User, foreign_key: :user_id
 
     def overlapping_requests  
        requests = CatRentalRequest
@@ -13,6 +14,7 @@ class CatRentalRequest < ApplicationRecord
                OR (end_date <= :ed AND end_date >= :sd)
                OR (start_date <= :sd AND end_date >= :ed)", {sd: self.start_date, ed: self.end_date})
        .where.not(id: self.id)
+       .where(cat_id: self.cat_id)
 
     end
 

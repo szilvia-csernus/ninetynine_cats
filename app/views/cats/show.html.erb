@@ -38,5 +38,7 @@
 
 </table>
 
-<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a><br>
-<a href="<%= cat_cat_rental_requests_url(@cat) %>">Show Cat Rental Requests</a>
+<!--<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a><br>-->
+
+<%= render partial: 'cat_rental_requests/index' %>
+

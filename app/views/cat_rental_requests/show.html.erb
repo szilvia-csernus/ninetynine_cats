@@ -22,9 +22,15 @@
             <td><%= @cat_rental_request.status %></td>
         </tr>
     </tbody>
+    <tbody>
+        <tr>
+            <td>Requester: </td>
+            <td><%= @cat_rental_request.requester.username %></td>
+        </tr>
+    </tbody>
 </table>
 <br>
-<% if @cat_rental_request.pending? %>
+<% if (@owner_call && @cat_rental_request.pending?) %>
     <a href="<%= approve_cat_rental_request_url(@cat_rental_request) %>">Approve Request</a><br>
     <a href="<%= deny_cat_rental_request_url(@cat_rental_request) %>">Deny Request</a>
 <% end %>

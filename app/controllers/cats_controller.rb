@@ -1,4 +1,5 @@
 class CatsController < ApplicationController
+    before_action :verify_cat_owner, only: [:edit, :update]
 
     def index
         @cats = Cat.all 
@@ -7,8 +8,10 @@ class CatsController < ApplicationController
 
     def show
         @cat = Cat.find_by(id: params[:id])
+        @owner_call = (@cat.owner == current_user)
         
         if @cat
+            @cat_rental_requests = @cat.cat_rental_requests.order(:start_date)
             render :show   
         else
             redirect_to cats_url
@@ -23,31 +26,29 @@ class CatsController < ApplicationController
     def create
 
         @cat = Cat.new(cat_params)
+        @cat.user_id = current_user.id
 
         if @cat.save
             flash[:notice] = 'Success!'
             redirect_to cat_url(@cat)
         else
-            #flash.now[:errors] = @user.errors.full_messages
+            flash.now[:errors] = @user.errors.full_messages
             render :new
         end
     end
 
-    def update
-
-        @cat = Cat.find_by(id: params[:id])
+    def update  
 
         if @cat.update_attributes(cat_params)
             flash[:notice] = 'Success!'
             redirect_to cat_url(@cat)
         else
-            #flash.now[:errors] = @user.errors.full_messages
+            flash.now[:errors] = @user.errors.full_messages
             render :edit
         end
     end
 
     def edit
-        @cat = Cat.find_by(id: params[:id])
         render :edit
     end
 
@@ -56,4 +57,12 @@ class CatsController < ApplicationController
     def cat_params
         params[:cat].permit(:name, :birth_date, :color, :sex, :description)
     end
+
+    def verify_cat_owner
+        @user = current_user
+        @cat = @user.find_own_cat(params[:id])
+            
+        redirect_to user_url(@user) if @cat == nil
+    end 
+
 end
