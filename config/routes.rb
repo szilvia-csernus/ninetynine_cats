@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   #new_session_url, session_url
   resource :session, only: [:new, :create, :destroy]
 
+  root to: 'cats#index'
 end
 
 

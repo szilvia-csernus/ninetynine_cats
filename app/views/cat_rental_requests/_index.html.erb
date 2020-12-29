@@ -1,25 +1,32 @@
-<h2><%= @cat.name %>'s rental requests</h2>
 
 <table>
     <thead>
         <tr>
+            <% if extended_list %>
+                <th>Cat's Name</th>
+                <th>Cat's Owner</th>
+            <% end %>
             <th>Start date</th>
             <th>End date</th>
             <th>Status</th>
             <th>Requester</th>
         </tr>
     </thead>
-    <% @cat_rental_requests.each do |cat_r_r| %>
+    <% cat_rental_requests.each do |cat_r_r| %>
     <tbody>
         <tr>
+            <% if extended_list %>
+                <td><%= cat_r_r.cat.name %></td>
+                <td><%= cat_r_r.cat.owner.username %></td>
+            <% end %>
             <td><%= cat_r_r.start_date %></td>
             <td><%= cat_r_r.end_date %></td>
             <td><%= cat_r_r.status %></td>
             <td><%= cat_r_r.requester.username %>
-            <td><% if (@owner_call && cat_r_r.pending?) %>
-                <a href="<%= approve_cat_rental_request_url(cat_r_r) %>">Approve Request </a>
-                <a href="<%= deny_cat_rental_request_url(cat_r_r) %>">Deny Request</a>
-                <% end %></a>
+            <td><% if (owner_call && cat_r_r.pending?) %>
+                <td><%= button_to "Approve", approve_cat_rental_request_url(cat_r_r), method: :get %></td>
+                <td><%= button_to "Deny", deny_cat_rental_request_url(cat_r_r), method: :get %></td>
+                <% end %>
             </td>
         </tr>
     </tbody>

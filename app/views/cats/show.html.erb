@@ -1,10 +1,6 @@
+<h2><%= @cat.name %></h2>
 
 <table>
-    <thead>
-        <tr>
-            <th colspan="2"><%= @cat.name %></th>
-        </tr>
-    </thead>
     <tbody>
         <tr>
             <td>Age: </td>
@@ -35,10 +31,23 @@
             <td><%= @cat.description %></td>
         </tr>
     </tbody>
+    <tbody>
+        <tr>
+            <td>Owner: </td>
+            <td><%= @cat.owner.username %></td>
+        </tr>
+    </tbody>
 
 </table>
 
-<!--<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a><br>-->
+<% if current_user == @cat.owner %>
+    <% owner_call = true %>
+    <a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+<% end %>
 
-<%= render partial: 'cat_rental_requests/index' %>
+<br><br>
+<h2><%= @cat.name %>'s rental requests</h2>
+<%= render 'cat_rental_requests/index', cat_rental_requests: @cat_rental_requests, 
+                                        owner_call: owner_call,
+                                        extended_list: false%>
 

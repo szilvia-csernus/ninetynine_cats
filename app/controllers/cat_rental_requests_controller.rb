@@ -14,7 +14,7 @@ class CatRentalRequestsController < ApplicationController
         
         
         if @cat_rental_request
-            render :show   
+            redirect_to user_url(current_user)   
         else
             redirect_to cat_rental_requests_url
         end
@@ -28,7 +28,7 @@ class CatRentalRequestsController < ApplicationController
 
     def create
 
-
+        
         @cat_rental_request = CatRentalRequest.new(cat_rental_request_params)
         @cat_rental_request.user_id = current_user.id
 
@@ -36,6 +36,7 @@ class CatRentalRequestsController < ApplicationController
             flash[:notice] = 'Success!'
             redirect_to cat_rental_request_url(@cat_rental_request)
         else
+            @cats = Cat.select(:id, :name).all
             flash.now[:errors] = @cat_rental_request.errors.full_messages
             render :new
         end
@@ -46,11 +47,9 @@ class CatRentalRequestsController < ApplicationController
         cat = @cat_rental_request.cat
 
         if @cat_rental_request.approve!
-            #flash[:notice] = 'Success!'
             redirect_to cat_url(cat)
         else
             flash.now[:errors] = @cat_rental_request.errors.full_messages
-            render 'approval unsuccessful!'
         end
     end
 
@@ -60,11 +59,9 @@ class CatRentalRequestsController < ApplicationController
         cat = @cat_rental_request.cat
 
         if @cat_rental_request.deny!
-            #flash[:notice] = 'Request successfully denied ;)'
             redirect_to cat_url(cat)
         else
             flash.now[:errors] = @user.errors.full_messages
-            render 'denial unsuccessful!'
         end
     end
 

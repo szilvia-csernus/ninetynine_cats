@@ -6,6 +6,12 @@
     <% @cats.each do |cat| %>
     <li>
         <a href="<%= cat_url(cat) %>"><%= cat.name %></a>
+        <br>
+        
+        <%= render 'cat_rental_requests/index', cat_rental_requests: cat.cat_rental_requests, 
+                                                owner_call: true,
+                                                extended_list: false %>
+
     </li>
     <% end %>
 </ul>
@@ -13,13 +19,13 @@
 
 <h2><%= current_user.username %>'s cat rental requests</h2>
 
-<ul>
-    <% @cat_rental_requests.each do |cat_r_r| %>
-    <li>
-        <a href="<%= cat_rental_request_url(cat_r_r) %>"><%= cat_r_r.start_date %></a>
-    </li>
-    <% end %>
-</ul>
+<%= render 'cat_rental_requests/index', cat_rental_requests: @cat_rental_requests, 
+                                        owner_call: false,
+                                        extended_list: true%>
+
 
 <br><br>
 <a href="<%= new_cat_url %>">Create Cat</a><br>
+
+<br>
+<a href="<%= new_cat_rental_request_url %>">New Cat Rental Request</a>

@@ -18,7 +18,7 @@ class UsersController < ApplicationController
 
   def show
     @cats = current_user.cats.includes(:cat_rental_requests)
-    @cat_rental_requests = current_user.cat_rental_requests
+    @cat_rental_requests = current_user.cat_rental_requests.includes(:cat)
   end
 
 
