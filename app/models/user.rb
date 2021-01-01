@@ -2,11 +2,10 @@
 class User < ApplicationRecord
     attr_reader :password
 
-    validates :username, presence: true
+    validates :username,:session_token, presence: true
     validates :username, uniqueness: true
     validates :password_digest, presence: { message: 'Password can\'t be blank' }
     validates :password, length: { minimum: 6, allow_nil: true }
-    validates :session_token, presence: true
     
     after_initialize :ensure_session_token  #before_validation or after_initialize?
 

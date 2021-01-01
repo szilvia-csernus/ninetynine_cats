@@ -2,16 +2,14 @@
 <% form_method = cat.persisted? ? "PATCH" : "POST" %>
 <% submit_text = cat.persisted? ? "Update Cat" : "Create Cat" %>
 
-<% unless cat.errors.full_messages.empty? %>
-    <ul>
-        <% cat.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
-<% end %>
+<%= render 'layouts/errors' %>
 
 <form action="<%= action_url %>" method="POST">
     <input type="hidden" name="_method" value="<%= form_method %>">
+    <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+
   
   <label for="cat_name">Name</label>
   <input name="cat[name]" id="cat_name" type="text" value="<%= cat.name %>">

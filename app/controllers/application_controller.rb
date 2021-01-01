@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
     def login!(user)
         @current_user = user
+        #log out other users by resetting session token
+        user.reset_session_token!
+        #logging in user
         session[:session_token] = user.session_token
     end
 

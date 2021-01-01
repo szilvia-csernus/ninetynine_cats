@@ -17,7 +17,7 @@ class Cat < ApplicationRecord
 
     def valid_birth?
         errors[:birth_date] << "not a valid date" unless self.birth_date.is_a?(Date)
-        errors[:birth_date] << "can't be in future" unless Date.today > self.birth_date 
+        errors[:birth_date] << "can't be in future" unless (birth_date && Date.today > self.birth_date) 
     end
 
     def age

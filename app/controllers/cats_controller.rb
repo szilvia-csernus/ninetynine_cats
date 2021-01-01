@@ -1,5 +1,11 @@
 class CatsController < ApplicationController
     before_action :verify_cat_owner, only: [:edit, :update]
+    # It's important to include :update too because a malicious user could 
+    # make a PUT request directly to /cats/123 using Postman or a similar tool 
+    # and update the cat anyway. In fact, protecting edit doesn't really do much 
+    # when it comes to security. We do it for good UX; a non-malicious user who 
+    # accidentally tries to edit another person's cat gets feedback that they're 
+    # not allowed to.
 
     def index
         @cats = Cat.all 
@@ -29,10 +35,11 @@ class CatsController < ApplicationController
         @cat.user_id = current_user.id
 
         if @cat.save
-            flash[:notice] = 'Success!'
+            flash[:notices] ||= []
+            flash[:notices] << 'Success!'
             redirect_to cat_url(@cat)
         else
-            flash.now[:errors] = @user.errors.full_messages
+            flash.now[:errors] = @cat.errors.full_messages
             render :new
         end
     end
@@ -40,10 +47,11 @@ class CatsController < ApplicationController
     def update  
 
         if @cat.update_attributes(cat_params)
-            flash[:notice] = 'Success!'
+            flash[:notices] ||= []
+            flash[:notices] << 'Success!'
             redirect_to cat_url(@cat)
         else
-            flash.now[:errors] = @user.errors.full_messages
+            flash.now[:errors] = @cat.errors.full_messages
             render :edit
         end
     end

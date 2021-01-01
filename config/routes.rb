@@ -2,10 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   
   #cats_url, new_cat_url, edit_cat_url, cat_url
-  resources :cats, only: [:index, :new, :create, :show, :update, :edit, :destroy]
-
-  #cat_cat_rental_requests_url
-  resources :cats, only: [:index] do
+  resources :cats do
+    #cat_cat_rental_requests_url
     resources :cat_rental_requests, only: [:index]
   end
 
@@ -23,15 +21,10 @@ Rails.application.routes.draw do
   end
 
   #users_url, new_user_url, edit_user_url, user_url
-  resources :users, only: [:new, :create, :show, :update, :edit, :destroy]
-
-  #user_cat_url
-  resources :users, only: [:show] do
+  resources :users do
+    #user_cat_url
     resources :cats, only: [:show, :update, :edit]
-  end
-
-  #user_requests_url
-  resources :users, only: [:show] do
+    #user_requests_url
     resources :requests, only: [:index, :show, :update, :edit]
   end
 

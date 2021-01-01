@@ -8,7 +8,8 @@ class UsersController < ApplicationController
             login!(@user)
             redirect_to user_url(@user)
         else
-            redirect_to new_user_url
+            flash[:errors] = @user.errors.full_messages
+            render :new
         end
     end
 
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :session_token)
+    params.require(:user).permit(:username, :password)
   end
 
 end
