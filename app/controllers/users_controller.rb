@@ -4,7 +4,9 @@ class UsersController < ApplicationController
     def create
     @user = User.new(user_params)
 
-        if @user.save
+        if @user.save 
+          # here we use save not save! because if save! fails it  will throw 
+          # database errors and the else branch would never be reached.
             login!(@user)
             redirect_to user_url(@user)
         else
