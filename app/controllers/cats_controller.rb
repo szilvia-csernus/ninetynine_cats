@@ -46,7 +46,7 @@ class CatsController < ApplicationController
 
     def update  
 
-        if @cat.update_attributes(cat_params)
+        if @cat.update(cat_params)
             flash[:notices] ||= []
             flash[:notices] << 'Success!'
             redirect_to cat_url(@cat)
